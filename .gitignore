@@ -1,0 +1,10 @@
+outputs
+datasets
+launching
+annotation/
+.vscode/
+bert-base-uncased/
+
+delete*
+__pycache__/
+covr-env/*
