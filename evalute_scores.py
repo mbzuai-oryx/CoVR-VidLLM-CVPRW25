@@ -21,15 +21,18 @@ def main(cfg: DictConfig):
 
     for dataset in cfg.evaluate:
         columns = shutil.get_terminal_size().columns
+        fabric.print("-" * columns)
         fabric.print(f"Evaluating {cfg.evaluate[dataset].dataname}".center(columns))
+        fabric.print("-" * columns)
 
         data = instantiate(cfg.evaluate[dataset])
         test_loader = fabric.setup_dataloaders(data.test_dataloader())
 
-        query_feats_filename = "query_feat_txt_only.pt" if cfg.evaluate[dataset].test["_target_"] == "src.test.webvid_covr_text.TestWebVidCoVRTextOnly" else "query_feat.pt"
+        query_feats_filename = "query_feat_txt_only.npy" if cfg.evaluate[dataset].test["_target_"] == "src.test.webvid_covr_text.TestWebVidCoVRTextOnly" else "query_feat.npy"
         try:
             query_feat_file_path = os.path.join(cfg.machine.paths.output_dir, query_feats_filename)
-            query_feats = torch.load(query_feat_file_path)
+            query_feats = np.load(query_feat_file_path)
+            query_feats = torch.from_numpy(query_feats)
         except Exception as e:
             print(e)
             print("Check the query features files name and path are correct")
@@ -42,7 +45,7 @@ def main(cfg: DictConfig):
             pair_ids.extend(pair_id)
             tar_img_feats.append(tar_feat.cpu())
 
-        query_feats = torch.cat(query_feats, dim=0).cpu()
+        # query_feats = torch.cat(query_feats, dim=0).cpu()
         tar_img_feats = torch.cat(tar_img_feats, dim=0)
 
         query_feats = F.normalize(query_feats, dim=-1)
