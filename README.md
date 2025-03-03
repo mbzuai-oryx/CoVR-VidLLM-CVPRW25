@@ -104,7 +104,8 @@ Next, make sure to fuse/average the embeddings for each video in the resulting .
 Finally, the fused embeddings should be saved as a numpy .npy file (which should contain a 1000x256 numpy nd-array, where 1000 - number of samples and 256 - feature dimension).
 
 
-#### Calculating Recalls for evaluation (can be used once the labels are published)
+#### Calculating Recalls for evaluation 
+This option can be used once the labels are published, but before that use our evaluation server on the evalAI challenge page.
 
 To calculate the recalls for the query features results for Image/Video + description, execute the following command:
 ```bash
