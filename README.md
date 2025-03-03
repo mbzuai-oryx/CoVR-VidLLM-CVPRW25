@@ -57,11 +57,11 @@ Before evaluating, you will need to compute the BLIP embeddings for the videos. 
 
 # For the validation set:
 python tools/embs/save_blip_embs_vids.py --video_dir datasets/WebVid/8M/train --todo_ids validation_set.csv
-# Then change the file name to blip-vid-embs-large-all_ours_val
+# Then change the name of the generated folder to "blip-vid-embs-large-all_ours_val"
 
 # For the test set (once it is public:
 python tools/embs/save_blip_embs_vids.py --video_dir datasets/WebVid/8M/train --todo_ids test_set.csv
-# Then change the file name to blip-vid-embs-large-all_ours_test
+# Then change the name of the generated folder to "blip-vid-embs-large-all_ours_test"
 ```
 
 
@@ -88,16 +88,18 @@ python test.py test=webvid-covr_our_val
 python test.py test=webvid-covr_our_test
 ```
 
-Extra options:
+Extra options (not required for the challenge):
 ```bash
-# On the original WebVid-CoVR test set (not required for the challenge):
+# On the original WebVid-CoVR test set:
 python test.py test=webvid-covr
 
-# The command to calculate the query feature description for Image/Video Description only:
+# On description only:
 python test.py test=webvid-covr_text
 ```
 
 The results will be saved in a torch tensor file `query_feat.pt` and `query_feat_txt_only.pt` in the output folder for Image/Video + Description and Descriptions only respectively.
+Next, make sure to fuse/average the embeddings for each video in the resulting .pth file (which is originally a (15*1000)x256 tensor, where 15 - number of key frames, 1000 - number of samples, and 256 - feature dimension).
+Finally, the fused embeddings should be saved as a numpy .npy file (which should contain a 1000x256 numpy nd-array, where 1000 - number of samples and 256 - feature dimension).
 
 
 #### Calculating Recalls for evaluation (can be used once the labels are published)
