@@ -12,9 +12,9 @@ webvid_covr:
   num_workers: ${machine.num_workers}
 
   # Paths
-  annotation: ${paths.work_dir}/test_set_gt.csv
-  vid_dirs: ./datasets/WebVid/8M/train
-  emb_dirs: ./datasets/WebVid/8M/blip-vid-embs-${model.model.vit}-all_ours_test
+  annotation: ${paths.work_dir}/test_set.csv
+  vid_dirs: ${paths.work_dir}/datasets/WebVid/8M/train
+  emb_dirs: ${paths.work_dir}/datasets/WebVid/8M/blip-vid-embs-${model.model.vit}-all_ours_test
 
   test:
     _target_: src.test.webvid_covr.TestWebVidCoVR
