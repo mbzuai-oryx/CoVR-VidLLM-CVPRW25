@@ -98,7 +98,9 @@ python test.py test=webvid-covr_text
 ```
 
 The results will be saved in a torch tensor file `query_feat.pt` and `query_feat_txt_only.pt` in the output folder for Image/Video + Description and Descriptions only respectively.
+
 Next, make sure to fuse/average the embeddings for each video in the resulting .pth file (which is originally a (15*1000)x256 tensor, where 15 - number of key frames, 1000 - number of samples, and 256 - feature dimension).
+
 Finally, the fused embeddings should be saved as a numpy .npy file (which should contain a 1000x256 numpy nd-array, where 1000 - number of samples and 256 - feature dimension).
 
 
