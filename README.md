@@ -50,10 +50,24 @@ bash tools/scripts/download_pretrained_models.sh
 
 ### Computing BLIP embeddings
 
-Before evaluating, you will need to compute the BLIP embeddings for the videos/images. To do so, run:
+Before evaluating, you will need to compute the BLIP embeddings for the videos. To do so, run:
 ```bash
 # This will compute the BLIP embeddings for the WebVid-CoVR videos. 
 # Note that you can use multiple GPUs with --num_shards and --shard_id
+
+# For the validation set:
+python tools/embs/save_blip_embs_vids.py --video_dir datasets/WebVid/8M/train --todo_ids validation_set.csv
+# Then change the file name to blip-vid-embs-large-all_ours_val
+
+# For the test set (once it is public:
+python tools/embs/save_blip_embs_vids.py --video_dir datasets/WebVid/8M/train --todo_ids test_set.csv
+# Then change the file name to blip-vid-embs-large-all_ours_test
+```
+
+
+If you are interested in using the whole WebVid-CoVR dataset (not required for the challenge):
+```bash
+# This will compute the BLIP embeddings for the WebVid-CoVR-Train videos.
 python tools/embs/save_blip_embs_vids.py --video_dir datasets/WebVid/2M/train --todo_ids annotation/webvid-covr/webvid2m-covr_train.csv 
 
 # This will compute the BLIP embeddings for the WebVid-CoVR-Test videos.
@@ -69,17 +83,24 @@ python tools/embs/save_blip_embs_txts.py annotation/webvid-covr/webvid2m-covr_tr
 
 The command to calculate the query feature results for Image/Video + description:
 ```bash
-python test.py test=webvid-covr
+# On the challenge splits:
+python test.py test=webvid-covr_our_val
+python test.py test=webvid-covr_our_test
 ```
 
-The command to calculate the query feature description for Image/Video Description only:
+Extra options:
 ```bash
+# On the original WebVid-CoVR test set (not required for the challenge):
+python test.py test=webvid-covr
+
+# The command to calculate the query feature description for Image/Video Description only:
 python test.py test=webvid-covr_text
 ```
 
 The results will be saved in a torch tensor file `query_feat.pt` and `query_feat_txt_only.pt` in the output folder for Image/Video + Description and Descriptions only respectively.
 
-#### Calculating Recalls for evaluation
+
+#### Calculating Recalls for evaluation (can be used once the labels are published)
 
 To calculate the recalls for the query features results for Image/Video + description, execute the following command:
 ```bash
