@@ -1,4 +1,6 @@
-![image](https://github.com/user-attachments/assets/a6a1f842-9748-4cff-a3d2-cd5a9d4281b4)# CoVR-VidLLM-CVPR25
+<!-- ![image](https://github.com/user-attachments/assets/a6a1f842-9748-4cff-a3d2-cd5a9d4281b4) -->
+
+# CoVR-VidLLM-CVPR25
 
 
 ## Description
