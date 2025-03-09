@@ -1,11 +1,10 @@
-# CoVR-VidLLM-CVPR25
-
+![image](https://github.com/user-attachments/assets/a6a1f842-9748-4cff-a3d2-cd5a9d4281b4)# CoVR-VidLLM-CVPR25
 
 
 ## Description
 This repository contains the code for CoVR-VidLLM workshop CVPR-2025.
 
-Please visit our [Workshop Page]() for more details.
+Please visit our [Workshop Page](https://www.crcv.ucf.edu/cvpr2025-vidllms-workshop/challenges.html) for more details.
 
 The repository structure: 
 
@@ -17,6 +16,11 @@ The repository structure:
  ┣ 📜 .gitignore
  ┣ 📜 README.md
  ┣ 📜 test.py                 # test script
+ ┣ 📜 validation_set.csv      # textual part of the validation set for the challenge (should be used during the Validation phase)
+ ┣ 📜 test_set.csv            # textual part of the test set for the challenge (will be published during the Test phase)
+
+
+
 
  ```
 
@@ -44,6 +48,12 @@ To download the checkpoints, run:
 bash tools/scripts/download_pretrained_models.sh
 ```
 
+### Download the dataset
+
+You can download the exact video-text triplets used in our validation and test sets from the [HuggingFace page](https://huggingface.co/datasets/omkarthawakar/CoVR-VidLLM-CVPR25).
+
+Optionally, in case you already have the original WebVid-CoVR validation dataset you can simply provide its path because the video-text triplets were sampled from there.
+
 
 
 ## Usage
@@ -59,7 +69,7 @@ Before evaluating, you will need to compute the BLIP embeddings for the videos. 
 python tools/embs/save_blip_embs_vids.py --video_dir datasets/WebVid/8M/train --todo_ids validation_set.csv
 # Then change the name of the generated folder to "blip-vid-embs-large-all_ours_val"
 
-# For the test set (once it is public:
+# For the test set (once it is public):
 python tools/embs/save_blip_embs_vids.py --video_dir datasets/WebVid/8M/train --todo_ids test_set.csv
 # Then change the name of the generated folder to "blip-vid-embs-large-all_ours_test"
 ```
@@ -103,9 +113,11 @@ Next, make sure to fuse/average the embeddings for each video in the resulting .
 
 Finally, the fused embeddings should be saved as a numpy .npy file (which should contain a 1000x256 numpy nd-array, where 1000 - number of samples and 256 - feature dimension).
 
+Simply submit this .npy file to the evaluation server on the evalAI [challenge page](https://eval.ai/web/challenges/challenge-page/2443/overview).
 
-#### Calculating Recalls for evaluation 
-This option can be used once the labels are published, but before that use our evaluation server on the evalAI challenge page.
+
+#### Calculating Recalls for evaluation (not required for the challenge)
+This option can be used once the labels are published, but before that use our evaluation server on the evalAI [challenge page](https://eval.ai/web/challenges/challenge-page/2443/overview).
 
 To calculate the recalls for the query features results for Image/Video + description, execute the following command:
 ```bash
