@@ -54,7 +54,7 @@ bash tools/scripts/download_pretrained_models.sh
 
 You can download the exact video-text triplets used in our validation and test sets from the [HuggingFace page](https://huggingface.co/datasets/omkarthawakar/CoVR-VidLLM-CVPR25).
 
-Optionally, in case you already have the original WebVid-CoVR validation dataset you can simply provide its path because the video-text triplets were sampled from there.
+Optionally, in case you already have the original WebVid-CoVR test dataset split you can simply provide its path because the video-text triplets were sampled from there.
 
 
 
